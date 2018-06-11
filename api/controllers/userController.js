@@ -49,7 +49,7 @@ exports.login = function (req, res, next) {
                 if (result) {
                     let payload = { id: user.id };
                     let token = jwt.sign(payload, "dbtrack");
-                    res.json({ message: "ok", token: token });
+                    res.json({ message: "ok", token: token, pseudo: req.body.username });
                 }
                 else {
                     res.status(401).json({ message: "passwords did not match" });

@@ -7,12 +7,12 @@ exports.get_all = function(req, res) {
 };
 
 exports.post_track = function(req, res) {
-    if (!(req.body.title && req.body.url && req.body.name && req.body.platform))
+    if (!(req.body.title && req.body.url && req.body.platform))
         res.status(400).send({"Error": "Bad request"});
     tracks.create({
         title: req.body.title,
         url: req.body.url,
         platform: req.body.platform,
-        user: req.user
+        userId: req.user.id
     }).then((track) => res.status(201).send(track)).catch((err) => console.log(err));
 };

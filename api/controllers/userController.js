@@ -16,19 +16,20 @@ exports.register = function(req, res, next) {
             }
             user.findOne({
                 where: {username: req.body.username}
-            }).then((user) => {
-                if (user !== null)
-                    return res.status(403).send({"Error": "This user already exists"})
+            }).then((obj) => {
+                if (obj !== null)
+                    return res.status(403).send({"Error": "This user already exists"});
+                else {
+                    user.create({
+                        username: req.body.username,
+                        password: hash
+                    }).then(() => {
+                        res.sendStatus(201)
+                    }).catch((err) => {
+                        return next(err)
+                    });
+                }
             });
-            user.create({
-                username: req.body.username,
-                password: hash
-            }).then(() => {
-                res.sendStatus(201)
-            }).catch((err) => {
-                return next(err)
-            });
-
         });
     });
 };
@@ -69,7 +70,7 @@ exports.add_subscription = function (req, res, next) {
         where: {id: req.body.id}
     }).then((user) => {
         if (user) {
-            req.user.addSubscriptions(user)
+            req.user.addSubscription(user)
                 .then(() => console.log("added subscription"))
                 .catch((err) => console.log(err));
         }

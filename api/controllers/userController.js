@@ -46,7 +46,7 @@ exports.login = function(req, res, next) {
                 if (result)
                 {
                     let payload = {id: user.id};
-                    let token = jwt.sign(payload, "dbtrack");
+                    let token = jwt.sign(payload, "dbtrack", {expiresIn: '60m'});
                     res.json({message: "ok", token: token, pseudo: req.body.username});
                 }
                 else {

@@ -3,9 +3,9 @@ let Sequelize = require("sequelize");
 let sequelize = require("../util/sequelize");
 
 
-let model = sequelize.define('user', {
+let user = sequelize.define('user', {
     username: Sequelize.STRING,
     password: Sequelize.STRING,
 });
 
-module.exports = model;
+module.exports = user;

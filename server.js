@@ -5,7 +5,8 @@ let bodyparser = require('body-parser');
 let app = express();
 let port = 8000;
 let routes = require('./api/routes/routes');
-let db = require('./api/models');
+let db = require('./api/models/index');
+let user = require('./api/models/user');
 let passport = require("passport");
 let passportJWT = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -15,7 +16,7 @@ jwtOptions.secretOrKey = "dbtrack";
 
 let strategy = new passportJWT(jwtOptions, function(jwt_payload, next) {
     console.log('payload received', jwt_payload);
-    let user = db.user.findOne({
+    user.findOne({
         where: {id: jwt_payload.id}
     }).then((user) => {
         if (user) {

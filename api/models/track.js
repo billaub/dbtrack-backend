@@ -2,10 +2,10 @@
 let Sequelize = require("sequelize");
 let sequelize = require("../util/sequelize");
 
-let model = sequelize.define('tracks', {
+let track = sequelize.define('tracks', {
     title: Sequelize.STRING,
     url: Sequelize.STRING,
     platform: Sequelize.STRING,
 });
 
-module.exports = model;
+module.exports = track;

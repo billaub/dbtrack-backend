@@ -1,10 +1,9 @@
 'use strict';
 
 let bcrypt = require('bcryptjs');
-let db = require('../models/index');
+let user = require('../models/user');
+let track = require('../models/track');
 let jwt = require('jsonwebtoken');
-let passport = require('passport');
-let LocalStrategy = require('passport-local').Strategy; /* this should be after passport*/
 
 exports.register = function(req, res, next) {
     bcrypt.genSalt(10, function(err, salt) {
@@ -15,13 +14,13 @@ exports.register = function(req, res, next) {
                 console.log(err);
                 return next(err);
             }
-            db.user.findOne({
+            user.findOne({
                 where: {username: req.body.username}
             }).then((user) => {
                 if (user !== null)
                     return res.status(403).send({"Error": "This user already exists"})
             });
-            db.user.create({
+            user.create({
                 username: req.body.username,
                 password: hash
             }).then(() => {
@@ -35,7 +34,7 @@ exports.register = function(req, res, next) {
 };
 
 exports.login = function(req, res, next) {
-    db.user.findOne({
+    user.findOne({
         where: {username: req.body.username}
     }).then((user) => {
         if( !user ){
@@ -60,13 +59,13 @@ exports.login = function(req, res, next) {
 };
 
 exports.get_all_users = function(req, res, next) {
-    db.user.findAll()
+    user.findAll()
         .then((users) => res.send(users))
         .catch((err) => console.log(err))
 };
 
 exports.add_subscription = function (req, res, next) {
-    db.user.findOne({
+    user.findOne({
         where: {id: req.body.id}
     }).then((user) => {
         if (user) {

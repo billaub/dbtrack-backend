@@ -13,20 +13,17 @@ let jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt')
 jwtOptions.secretOrKey = "dbtrack";
 
-db.sequelize.sync()
-    .then(() => console.log("ok"))
-    .catch((err) => console.log(err));
-
 let strategy = new passportJWT(jwtOptions, function(jwt_payload, next) {
     console.log('payload received', jwt_payload);
     let user = db.user.findOne({
         where: {id: jwt_payload.id}
+    }).then((user) => {
+        if (user) {
+            next(null, user);
+        } else {
+            next(null, false);
+        }
     });
-    if (user) {
-        next(null, user);
-    } else {
-        next(null, false);
-    }
 });
 
 passport.use(strategy);
@@ -40,6 +37,9 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', '*');
     next();
 });
+app.use('/tracks', passport.authenticate('jwt', {session: false}));
+app.use('/subscribe', passport.authenticate('jwt', {session: false}));
+
 routes(app);
 app.listen(port);
 

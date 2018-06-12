@@ -1,13 +1,12 @@
 'use strict';
-const Sequelize = require('sequelize');
+let Sequelize = require("sequelize");
+let sequelize = require("../util/sequelize");
 
-module.exports = function (sequelize, DataTypes) {
-    let Track = sequelize.define('tracks', {
-        title: DataTypes.STRING,
-        url: DataTypes.STRING,
-        name: DataTypes.STRING,
-        platform: DataTypes.STRING,
-    });
+let model = sequelize.define('tracks', {
+    title: Sequelize.STRING,
+    url: Sequelize.STRING,
+    name: Sequelize.STRING,
+    platform: Sequelize.STRING,
+});
 
-    return Track
-};
+module.exports = model;

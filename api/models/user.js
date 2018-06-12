@@ -1,11 +1,11 @@
 'use strict';
-const Sequelize = require('sequelize');
+let Sequelize = require("sequelize");
+let sequelize = require("../util/sequelize");
 
-module.exports = function (sequelize, DataTypes) {
-    let User = sequelize.define('user', {
-        username: DataTypes.STRING,
-        password: DataTypes.STRING,
-    });
 
-    return User
-};
+let model = sequelize.define('user', {
+    username: Sequelize.STRING,
+    password: Sequelize.STRING,
+});
+
+module.exports = model;

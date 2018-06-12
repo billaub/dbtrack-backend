@@ -12,7 +12,6 @@ exports.post_track = function(req, res) {
     db.tracks.create({
         title: req.body.title,
         url: req.body.url,
-        name: req.body.name,
         platform: req.body.platform,
         user: req.user
     }).then((track) => res.status(201).send(track)).catch((err) => console.log(err));

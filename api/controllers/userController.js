@@ -70,7 +70,7 @@ exports.add_subscription = function (req, res, next) {
         where: {id: req.body.id}
     }).then((user) => {
         if (user) {
-            req.user.addSubscription(user)
+            req.user.addSubscriptions(user)
                 .then(() => console.log("added subscription"))
                 .catch((err) => console.log(err));
         }

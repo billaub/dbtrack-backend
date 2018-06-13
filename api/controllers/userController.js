@@ -82,6 +82,23 @@ exports.add_subscription = function (req, res, next) {
     })
 };
 
+exports.remove_subscription = function(req, res, next) {
+    user.findOne({
+        where: {id: req.body.id}
+    }).then((user) => {
+        if (user) {
+            req.user.removeSubscription(user)
+                .then(() => {
+                    console.log("removed subscription");
+                    res.status(201).send();
+                })
+                .catch((err) => console.log(err));
+        }
+    }).catch((err) => {
+        console.log(err);
+    })
+};
+
 exports.get_subscriptions = function(req, res, next) {
     req.user.getSubscription()
         .then((sub) => res.send(sub));

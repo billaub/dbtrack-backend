@@ -43,6 +43,7 @@ app.use((req, res, next) => {
 });
 app.use('/tracks', passport.authenticate('jwt', {session: false}));
 app.use('/subscribe', passport.authenticate('jwt', {session: false}));
+app.use('/subscriptions', passport.authenticate('jwt', {session: false}));
 
 routes(app);
 app.listen(port);

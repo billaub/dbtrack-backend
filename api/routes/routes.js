@@ -26,4 +26,7 @@ module.exports = function (app) {
 
     app.route('/subscriptions')
         .get(users.get_subscriptions);
+
+    app.route('/subscriptions/remove')
+        .post(users.remove_subscription);
 };

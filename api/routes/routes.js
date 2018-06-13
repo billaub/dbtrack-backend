@@ -9,6 +9,9 @@ module.exports = function (app) {
         .get(tracks.get_all)
         .post(tracks.post_track);
 
+    app.route('/subscribe/tracks')
+        .get(tracks.get_tracks_from_subscription);
+
     app.route('/users')
         .get(users.get_all_users);
 
@@ -20,4 +23,7 @@ module.exports = function (app) {
 
     app.route('/subscribe')
         .post(users.add_subscription);
+
+    app.route('/subscriptions')
+        .get(users.get_subscriptions);
 };

@@ -81,3 +81,8 @@ exports.add_subscription = function (req, res, next) {
         console.log(err);
     })
 };
+
+exports.get_subscriptions = function(req, res, next) {
+    req.user.getSubscription()
+        .then((sub) => res.send(sub));
+};

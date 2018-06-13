@@ -71,7 +71,10 @@ exports.add_subscription = function (req, res, next) {
     }).then((user) => {
         if (user) {
             req.user.addSubscription(user)
-                .then(() => console.log("added subscription"))
+                .then(() => {
+                    console.log("added subscription");
+                    res.status(201).send();
+                })
                 .catch((err) => console.log(err));
         }
     }).catch((err) => {

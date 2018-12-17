@@ -1,6 +1,6 @@
 let Sequelize = require("sequelize");
 
-let sequelize = new Sequelize('root', 'postgres', '', {
+let sequelize = new Sequelize('dbtrack', 'postgres', '', {
     host: 'localhost',
     dialect: 'postgres',
     operatorsAliases: false,
